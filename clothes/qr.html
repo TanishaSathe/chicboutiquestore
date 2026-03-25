@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI QR Code Generator - Noire</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="qr-generator-container">
+        <div class="qr-generator-card">
+            <h1>UPI QR Code Generator</h1>
+            <p>Generate a scannable QR code for your UPI payments</p>
+            
+            <form id="qrForm">
+                <div class="form-group">
+                    <label for="upiId">UPI ID</label>
+                    <input type="text" id="upiId" value="tanisathe1116@okicici" required>
+                    <small>Format: username@bankname</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="payeeName">Payee Name</label>
+                    <input type="text" id="payeeName" value="Noire Fashion" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount">Amount (Optional)</label>
+                    <input type="number" id="amount" placeholder="0.00" step="0.01" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="note">Transaction Note (Optional)</label>
+                    <input type="text" id="note" placeholder="Payment for order">
+                </div>
+                
+                <button type="submit" class="generate-btn">Generate QR Code</button>
+            </form>
+            
+            <div id="qrResult" style="display: none;">
+                <h3>Your QR Code</h3>
+                <div id="qrCode"></div>
+                <div class="qr-actions">
+                    <button onclick="downloadQR()" class="download-btn">Download QR Code</button>
+                    <button onclick="copyUPIString()" class="copy-btn">Copy UPI Link</button>
+                </div>
+                <div class="qr-info">
+                    <p><strong>UPI ID:</strong> <span id="displayUpiId"></span></p>
+                    <p><strong>Payee:</strong> <span id="displayPayeeName"></span></p>
+                    <p><strong>UPI Link:</strong> <span id="displayUpiLink"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script>
+        let qrcode = null;
+        
+        document.getElementById('qrForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            generateQRCode();
+        });
+        
+        function generateQRCode() {
+            const upiId = document.getElementById('upiId').value;
+            const payeeName = document.getElementById('payeeName').value;
+            const amount = document.getElementById('amount').value;
+            const note = document.getElementById('note').value;
+            
+            // Validate UPI ID format
+            if (!upiId.includes('@')) {
+                showNotification('Please enter a valid UPI ID (format: username@bankname)');
+                return;
+            }
+            
+            // Create UPI payment string
+            let upiString = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}`;
+            
+            if (amount && amount > 0) {
+                upiString += `&am=${amount}`;
+            }
+            
+            upiString += `&cu=INR`;
+            
+            if (note) {
+                upiString += `&tn=${encodeURIComponent(note)}`;
+            }
+            
+            // Clear previous QR code
+            const qrContainer = document.getElementById('qrCode');
+            qrContainer.innerHTML = '';
+            
+            // Generate new QR code
+            qrcode = new QRCode(qrContainer, {
+                text: upiString,
+                width: 256,
+                height: 256,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            
+            // Show result section
+            document.getElementById('qrResult').style.display = 'block';
+            
+            // Update display information
+            document.getElementById('displayUpiId').textContent = upiId;
+            document.getElementById('displayPayeeName').textContent = payeeName;
+            document.getElementById('displayUpiLink').textContent = upiString;
+            
+            showNotification('QR Code generated successfully!');
+        }
+        
+        function downloadQR() {
+            if (!qrcode) return;
+            
+            const canvas = document.querySelector('#qrCode canvas');
+            if (canvas) {
+                const link = document.createElement('a');
+                link.download = 'noire-upi-qr-code.png';
+                link.href = canvas.toDataURL();
+                link.click();
+                showNotification('QR Code downloaded!');
+            }
+        }
+        
+        function copyUPIString() {
+            const upiLink = document.getElementById('displayUpiLink').textContent;
+            navigator.clipboard.writeText(upiLink).then(() => {
+                showNotification('UPI link copied to clipboard!');
+            }).catch(() => {
+                showNotification('Failed to copy UPI link');
+            });
+        }
+        
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #4CAF50;
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 1002;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+    
+    <style>
+        .qr-generator-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+        }
+        
+        .qr-generator-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .qr-generator-card h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+        
+        .qr-generator-card p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-group small {
+            display: block;
+            margin-top: 0.25rem;
+            color: #666;
+            font-size: 0.8rem;
+        }
+        
+        .generate-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        #qrResult {
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        #qrResult h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        #qrCode {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .qr-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .download-btn, .copy-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+        
+        .download-btn {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .copy-btn {
+            background: #2196F3;
+            color: white;
+        }
+        
+        .download-btn:hover, .copy-btn:hover {
+            opacity: 0.8;
+        }
+        
+        .qr-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        .qr-info p {
+            margin: 0.5rem 0;
+            color: #666;
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+        
+        @media (max-width: 600px) {
+            .qr-generator-card {
+                padding: 2rem;
+            }
+            
+            .qr-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</body>
+</html>
