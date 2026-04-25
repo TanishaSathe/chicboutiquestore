@@ -421,7 +421,7 @@ const products = [
         id: 8,
         name: "Fashion Scarf",
         price: 1299,
-        image: "images/Toile de Jouy Olive Green Square Scarf.jpg",
+        image: "images/scarf.jpg",
         category: "accessories",
         description: "Soft fashion scarf"
     },
