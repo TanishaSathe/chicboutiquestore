@@ -373,7 +373,7 @@ const products = [
         id: 2,
         name: "Elegant Blouse",
         price: 2999,
-        image: "https://images.pexels.com/photos/696981/pexels-photo-696981.jpeg?auto=compress&cs=tinysrgb&w=400",
+        image: "https://images.pexels.com/photos/2065208/pexels-photo-2065208.jpeg?auto=compress&cs=tinysrgb&w=400",
         category: "women",
         description: "Stylish office blouse"
     },
