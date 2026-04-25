@@ -397,7 +397,7 @@ const products = [
         id: 5,
         name: "Casual Top",
         price: 1999,
-        image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400",
+        image: "https://images.unsplash.com/photo-1591047139829-91b2e7a760a0?w=400",
         category: "women",
         description: "Comfortable casual top"
     },
