@@ -1,6 +1,4 @@
-// Add Cash on Delivery option
 document.addEventListener('DOMContentLoaded', function() {
-    // Add COD option to payment methods
     const paymentOptions = document.querySelector('.payment-options');
     if (paymentOptions) {
         const codOption = document.createElement('label');
@@ -11,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         paymentOptions.appendChild(codOption);
         
-        // Add event listener for COD option
         codOption.querySelector('input').addEventListener('change', function() {
             const cardForm = document.getElementById('cardPaymentForm');
             const gpayForm = document.getElementById('gpayPaymentForm');
@@ -19,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (this.value === 'cod') {
                 cardForm.style.display = 'none';
                 gpayForm.style.display = 'none';
-                // Make all payment fields not required
+                
                 document.getElementById('cardName').required = false;
                 document.getElementById('cardNumber').required = false;
                 document.getElementById('expiry').required = false;
@@ -29,8 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    // Add product search functionality
     const searchContainer = document.createElement('div');
     searchContainer.className = 'search-container';
     searchContainer.innerHTML = `
@@ -40,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     `;
     
-    // Insert search bar before products section
+    
     const productsSection = document.getElementById('products');
     if (productsSection) {
         productsSection.parentNode.insertBefore(searchContainer, productsSection);
