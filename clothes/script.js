@@ -381,7 +381,7 @@ const products = [
         id: 3,
         name: "Wool Sweater",
         price: 4999,
-        image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400",
+        image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400",
         category: "women",
         description: "Warm wool sweater"
     },
