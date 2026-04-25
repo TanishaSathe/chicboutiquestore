@@ -405,7 +405,7 @@ const products = [
         id: 6,
         name: "Designer Top",
         price: 3999,
-        image: "https://images.unsplash.com/photo-1594633312681-1dfe5d97dccd1?w=400",
+        image: "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400",
         category: "women",
         description: "Stylish designer top₹"
     },
