@@ -385,54 +385,7 @@ const products = [
         category: "women",
         description: "Warm wool sweater"
     },
-    {
-        id: 4,
-        name: "Evening Gown",
-        price: 9499,
-        image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400",
-        category: "women",
-        description: "Elegant evening gown"
-    },
-    {
-        id: 5,
-        name: "Casual Top",
-        price: 1999,
-        image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400",
-        category: "women",
-        description: "Comfortable casual top"
-    },
-    {
-        id: 6,
-        name: "Designer Top",
-        price: 3999,
-        image: "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400",
-        category: "women",
-        description: "Stylish designer top₹"
-    },
-    {
-        id: 7,
-        name: "Designer Handbag",
-        price: 2499,
-        image: "https://images.unsplash.com/photo-1558769132-c5e6b8abe6a?w=400",
-        category: "accessories",
-        description: "Elegant designer handbag"
-    },
-    {
-        id: 8,
-        name: "Fashion Scarf",
-        price: 1299,
-        image: "images/scarf.jpg",
-        category: "accessories",
-        description: "Soft fashion scarf"
-    },
-    {
-        id: 9,
-        name: "Luxury Silk Scarf",
-        price: 1899,
-        image: "https://images.unsplash.com/photo-1594633312681-1dfe5d97dccd1?w=400",
-        category: "accessories",
-        description: "Premium silk scarf with elegant design"
-    }
+    
 ];
 
 // Shopping cart
