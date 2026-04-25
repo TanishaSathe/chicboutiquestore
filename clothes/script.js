@@ -389,7 +389,7 @@ const products = [
         id: 4,
         name: "Evening Gown",
         price: 9499,
-        image: "https://images.unsplash.com/photo-1594633312681-1dfe5d97dccd1?w=400",
+        image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400",
         category: "women",
         description: "Elegant evening gown"
     },
