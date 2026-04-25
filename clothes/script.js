@@ -379,11 +379,11 @@ const products = [
     },
     {
         id: 3,
-        name: "Wool Sweater",
+        name: "Light Runner Pro",
         price: 4999,
         image: "https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=400",
         category: "women",
-        description: "Warm wool sweater"
+        description: "Ultra-lightweight shoes"
     },
     
 ];
