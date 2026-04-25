@@ -421,7 +421,7 @@ const products = [
         id: 8,
         name: "Fashion Scarf",
         price: 1299,
-        image: "https://images.unsplash.com/photo-1591047139829-91b2e7a760a0?w=400",
+        image: "https://images.unsplash.com/photo-1523050854058-1dfe5d97dccd1?w=400",
         category: "accessories",
         description: "Soft fashion scarf"
     },
